@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <!-- Remember to include jQuery :) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
+    <!-- jQuery Modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #time_graph_canvas {
+        position: fixed;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="modals">
+      <!-- Modal HTML embedded directly into document -->
+      <div id="ex1" class="modal">
+        <p>The Game is Over!You can play it again!</p>
+        <a onclick="reflushWindow()" href="#" rel="modal:close">重新来过</a>
+      </div>
+      <div id="modalClick" style="display: none;">
+        <p><a id='modalClickA' href="#ex1" rel="modal:open">Open Modal</a></p>
+      </div>
+    </div>
+    <div
+      id="example"
+      style="border: 1xp solid blueviolet; width: 18.75rem; height: 18.75rem;"
+    ></div>
+    <script type="text/babel">
+      const point = [];
+
+      let dash_len = 20;
+      let val = 0;
+      let len0 = 30;
+      var isOK = true;
+
+      for (var j = 0; j < dash_len; j++) {
+        const ingroup = {};
+        for (var k = 0; k < dash_len; k++) {
+          ingroup[k + "_" + j] = val;
+        }
+        point[j] = ingroup;
+      }
+
+      function reflushWindow(){
+        window.location.reload();
+      }
+
+      function modalClick(){
+        (()=>{
+          // 兼容IE
+            if(document.all) {
+                document.getElementById("modalClickA").click();
+            }
+            // 兼容其它浏览器
+            else {
+                var e = document.createEvent("MouseEvents");
+                e.initEvent("click", true, true);
+                document.getElementById("modalClickA").dispatchEvent(e);
+            }
+        })();
+      }
+
+      class Toggle extends React.Component {
+        constructor(props) {
+          super(props);
+          this.initCanvas = this.initCanvas.bind(this);
+          this.cnvs_getCoordinates = this.cnvs_getCoordinates.bind(this);
+        }
+
+        cnvs_getCoordinates(e) {
+          var x = e.clientX;
+          var y = e.clientY;
+          document.getElementById("xycoordinates").innerHTML =
+            "Coordinates: (" + x + "," + y + ")";
+
+          var pointX = Math.round(x / len0);
+          var pointY = Math.round(y / len0);
+
+          if (
+            point[pointY][pointX + "_" + pointY] != 1 &&
+            point[pointY][pointX + "_" + pointY] != 2
+          ) {
+            if (isOK) {
+              point[pointY][pointX + "_" + pointY] = 1;
+              isOK = false;
+            } else {
+              point[pointY][pointX + "_" + pointY] = 2;
+              isOK = true;
+            }
+          }
+
+          this.initCanvas();
+          console.log(point);
+          for (var i = 0; i < point.length; i++) {
+            for (var n = 0; n < point.length - 1; n++) {
+              if (
+                point[i][n + "_" + i] != 0 ||
+                point[i][n + "_" + i] != undefined
+              ) {
+                // 五子为一时
+                if (
+                  (point[i][n + "_" + i] == 1 &&
+                    point[i][(n + 1) + "_" + i] == 1 &&
+                    point[i][(n + 2) + "_" + i] == 1 &&
+                    point[i][(n + 3) + "_" + i] == 1 &&
+                    point[i][(n + 4) + "_" + i] == 1) ||
+                  (point[i][n + "_" + i] == 2 &&
+                    point[i][(n + 1) + "_" + i] == 2 &&
+                    point[i][(n + 2) + "_" + i] == 2 &&
+                    point[i][(n + 3) + "_" + i] == 2 &&
+                    point[i][(n + 4) + "_" + i] == 2)
+                ) {
+                  console.log("game over");
+                  modalClick();
+                }
+                // 五子为1时
+                if(
+                  (point[i][n + "_" + i] == 1 &&
+                    point[i + 1][n + "_" + (i + 1)] == 1 &&
+                    point[i + 2][n + "_" + (i + 2)] == 1 &&
+                    point[i + 3][n + "_" + (i + 3)] == 1 &&
+                    point[i + 4][n + "_" + (i + 4)] == 1) ||
+                  (point[i][n + "_" + i] == 2 &&
+                    point[i + 1][n + "_" + (i + 1)] == 2 &&
+                    point[i + 2][n + "_" + (i + 2)] == 2 &&
+                    point[i + 3][n + "_" + (i + 3)] == 2 &&
+                    point[i + 4][n + "_" + (i + 4)] == 2)
+                  ){
+                    console.log("game over");
+                    modalClick();
+                  }
+                
+                // 五子为\时
+                if(
+                  (point[i][n + "_" + i] == 1 &&
+                    point[i + 1][(n + 1) + "_" + (i + 1)] == 1 &&
+                    point[i + 2][(n + 2) + "_" + (i + 2)] == 1 &&
+                    point[i + 3][(n + 3) + "_" + (i + 3)] == 1 &&
+                    point[i + 4][(n + 4) + "_" + (i + 4)] == 1) ||
+                  (point[i][n + "_" + i] == 2 &&
+                    point[i + 1][(n + 1) + "_" + (i + 1)] == 2 &&
+                    point[i + 2][(n + 2) + "_" + (i + 2)] == 2 &&
+                    point[i + 3][(n + 3) + "_" + (i + 3)] == 2 &&
+                    point[i + 4][(n + 4) + "_" + (i + 4)] == 2)
+                  ){
+                    console.log("game over");
+                    modalClick();
+                  }
+                  // 五子为/时
+                if(
+                  (point[i][n + "_" + i] == 1 &&
+                    point[i + 1][(n - 1) + "_" + (i + 1)] == 1 &&
+                    point[i + 2][(n - 2) + "_" + (i + 2)] == 1 &&
+                    point[i + 3][(n - 3) + "_" + (i + 3)] == 1 &&
+                    point[i + 4][(n - 4) + "_" + (i + 4)] == 1) ||
+                  (point[i][n + "_" + i] == 2 &&
+                    point[i + 1][(n - 1) + "_" + (i + 1)] == 2 &&
+                    point[i + 2][(n - 2) + "_" + (i + 2)] == 2 &&
+                    point[i + 3][(n - 3) + "_" + (i + 3)] == 2 &&
+                    point[i + 4][(n - 4) + "_" + (i + 4)] == 2)
+                  ){
+                    console.log("game over");
+                    modalClick();
+                }
+              }
+            }
+          }
+        }
+        
+        initCanvas() {
+          let ele = document.getElementById("time_graph_canvas");
+          let ctx = ele.getContext("2d");
+
+          ctx.fillStyle = "#FF0000";
+          ele.width = (point.length - 1) * len0;
+          ele.height = (point.length - 1) * len0;
+
+          for (var i = 0; i < point.length; i++) {
+            for (var n = 0; n < point.length - 1; n++) {
+              ctx.strokeStyle = "blue"; // 绘制蓝色线条
+              ctx.beginPath(); // 绘制线条开始
+
+              ctx.moveTo(i * len0, n * len0);
+              ctx.lineTo(i * len0, (n + 1) * len0);
+              ctx.moveTo(n * len0, i * len0);
+              ctx.lineTo((n + 1) * len0, i * len0);
+              ctx.closePath();
+              ctx.stroke(); // 绘制线条结束
+
+              if (point[i][n + "_" + i] == 1) {
+                ctx.fillStyle = "orange";
+                ctx.beginPath();
+                ctx.arc(n * len0, i * len0, 5, 0, Math.PI * 2, true);
+                ctx.closePath();
+                ctx.fill();
+              } else if (point[i][n + "_" + i] == 2) {
+                ctx.fillStyle = "black";
+                ctx.beginPath();
+                ctx.arc(n * len0, i * len0, 5, 0, Math.PI * 2, true);
+                ctx.closePath();
+                ctx.fill();
+              }
+            }
+          }
+        }
+
+        componentDidMount() {
+          this.initCanvas();
+        }
+        componentDidUpdate() {
+          this.initCanvas();
+        }
+        compoentWillUnmount() {}
+        render() {
+          return (
+            <canvas
+              id="time_graph_canvas"
+              width="auto"
+              height="auto"
+              onClick={(e) => {
+                this.cnvs_getCoordinates(e);
+              }}
+            ></canvas>
+          );
+        }
+      }
+
+      ReactDOM.render(<Toggle />, document.getElementById("example"));
+    </script>
+    <div id="xycoordinates"></div>
+  </body>
+</html>
