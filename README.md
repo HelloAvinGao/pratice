@@ -1,1 +1,1 @@
-# pratice
+# Here are all the exercises
