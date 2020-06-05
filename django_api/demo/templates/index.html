@@ -1,0 +1,14 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>django API</title>
+    </head>
+    <body>
+        <h2>{{context.hello}}</h2>
+        {% for employee_key, employee_value in context.items %}
+            <p>{{employee_key}}:{{employee_value}}</p>
+        {% endfor %}
+    </body>
+</html>
