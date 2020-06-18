@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TableExport</title>
+    <!--jquery-->
+    <script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.min.js"></script>
+    <!--bootstrap-->
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!--fontawesome-->
+    <script src="https://cdn.bootcss.com/font-awesome/5.8.1/js/all.min.js"></script>
+    <!--bootstrap-table-->
+    <link href="https://cdn.bootcss.com/bootstrap-table/1.14.2/bootstrap-table.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.14.2/bootstrap-table.min.js"></script>
+    <!--bootstrap-table-lanuage-->
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.14.2/bootstrap-table-locale-all.min.js"></script>
+    <!--bootstrap-table-export-->
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.14.2/extensions/export/bootstrap-table-export.min.js"></script>
+    <!--在客户端保存生成的导出文件-->
+    <script src="https://cdn.bootcss.com/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
+    <!--以XLSX（Excel 2007+ XML格式）格式导出表（SheetJS）-->
+    <script src="https://cdn.bootcss.com/xlsx/0.14.2/xlsx.core.min.js"></script>
+    <!--以PNG格式导出表格-->
+    <!--对于IE支持包括 html2canvas 之前的 es6-promise-->
+    <script src="https://cdn.bootcss.com/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
+    <script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+    <!--将表导出为PDF文件-->
+    <script src="https://unpkg.com/tableexport.jquery.plugin/libs/jsPDF/jspdf.min.js"></script>
+    <script src="https://unpkg.com/tableexport.jquery.plugin/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+    <!--无论期望的格式如何，最后都包含 tableexport.jquery.plugin（不是tableexport）-->
+    <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div id="toolbar">
+        <select class="form-control">
+            <option value="">Export Basic</option>
+            <option value="all">Export All</option>
+            <option value="selected">Export Selected</option>
+        </select>
+    </div>
+    <button type="button" onclick="exportData()" class='btn btn-mini btn-info'>导出</button>
+    <table id="table" data-locale="zh-CN"></table>
+</div>
+<script>
+    $(function () {
+        $.ajax({
+            url: "https://examples.bootstrap-table.com/json/data1.json?order=asc",
+            success: function (result) {
+                // 初始化表格
+                $('#toolbar').find('select').change(function () {
+                    $('#table').bootstrapTable('destroy').bootstrapTable({
+                        data: result,
+                        pagination: true,//显示分页
+                        clickToSelect: true,//单击列表选中
+                        toolbar: "#toolbar",//显示工具栏
+                        showToggle: true,//工具栏上显示列表模式切换
+                        showExport: true,//工具栏上显示导出按钮
+                        exportDataType: $(this).val(),//显示导出范围
+                        exportTypes: ['json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'xlsx', 'pdf'],//导出格式
+                        exportOptions: {//导出设置
+                            fileName: 'Tablexxx',//下载文件名称
+                        },
+                        columns: [
+                            {
+                                field: 'state',
+                                checkbox: true,
+                                visible: $(this).val() === 'selected'
+                            },
+                            {
+                                field: 'id',
+                                title: 'ID'
+                            }, {
+                                field: 'name',
+                                title: 'Item Name'
+                            }, {
+                                field: 'price',
+                                title: 'Item Price'
+                            }
+                        ]
+                    })
+                }).trigger('change');
+            }
+        });
+    })
+    // 自定义按钮导出数据
+    function exportData(){
+        $('#table').tableExport({
+            type: 'excel',
+            exportDataType: "all",
+            ignoreColumn: [0],//忽略某一列的索引
+            fileName: 'Tablexxx',//下载文件名称
+            onCellHtmlData: function (cell, row, col, data){//处理导出内容,自定义某一行、某一列、某个单元格的内容
+                console.info(data);
+                return data;
+            },
+        });
+    }
+</script>
+</body>
+</html>

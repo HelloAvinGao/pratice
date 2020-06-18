@@ -1,0 +1,258 @@
+{%extends 'thingFuncBtn.html' %}
+{% load static %}
+{% block homeChildStyle %}
+#right_menu ul li{float:left;}
+#remove,.input-group-btn{float:left;}
+th{color:white;}
+button{margin-right:1em;}
+{% endblock homeChildStyle %}
+{% block contentright_content %}
+
+<div>
+    <div>
+        <div id="toolbar">
+            <div class="input-group-btn">
+	            <select class="form-control" id="selectTable">
+	            </select>
+            </div>
+            <span class="input-group-btn">
+                <button class="btn btn-primary" id="LOAD" type="submit" onclick="loadTable()">LOAD</button>
+            </span>
+            <span class="input-group-btn">
+                <button class="btn btn-primary" id="delete" type="submit" onclick="deleteTable()">DELETE</button>
+            </span>
+            <span class="input-group-btn">
+                <button class="btn btn-primary" id="edit" type="submit" onclick="editTable(this)">EDIT</button>
+            </span>
+            <span class="input-group-btn">
+                <button class="btn btn-primary" id="save" type="submit" onclick="saveTable()">SAVE</button>
+            </span>
+            <span class="input-group-btn">
+                <button class="btn btn-primary" id="add" type="submit" onclick="addTable()">ADD</button>
+            </span>
+            <span class="input-group-btn">
+                 <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle"  type="submit" data-toggle="dropdown" >EXPORT</button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2" id="typeSelect"></div>
+                 </div>
+            </span>
+        </div>
+        <table id="table" class="table table-hover table-bordered"></table>
+    </div>
+</div>
+<script>
+    var urls = 'http://127.0.0.1:8000';
+    ajax(urls + '/API/tableData/','GET','',returnDATA);
+    var export_type = ['SQL','CSV','JSON','PNG','WORD','XML','EXCEL'];//PDF有乱码问题
+    function returnDATA(data){
+        str = '<option value="choose" disabled selected>--选择加载列表--</option>';
+        var resultData = JSON.parse(data)['results']
+        for(var j = 0;j < resultData.length;j++){
+            str += '<option value='+resultData[j]['tableName']+'>'+resultData[j]['tableName']+'</option>';
+        }
+        document.getElementById('selectTable').innerHTML = str;
+        strType = '';
+        for(var i = 0;i < export_type.length;i++){
+            strType += '<button class="dropdown-item"  onclick="exportTables(this)" value="'+export_type[i]+'" type="button">'+export_type[i]+'</button>';
+        }
+        document.getElementById('typeSelect').innerHTML = strType;
+    }
+    function loadTable(){
+        var selectTable=document.getElementById("selectTable");
+        var index=selectTable.selectedIndex;
+        var tableVal=selectTable[index].value;
+        document.getElementById('table').setAttribute('data-index',tableVal);
+        if(tableVal == 'choose'){
+            alert('请选择需要加载的数据表');
+        }else{
+            ajax(urls + '/API/tableData/' + tableVal + '/','GET','',showtableData);
+        }
+    }
+    function showtableData(data){
+        str = '';
+        var thData = eval(JSON.parse(data)['thName']);
+        str += "<thead><tr class='bg-dark'>";
+        str += '<th><input type="checkbox" onclick="selectAll(this)"></th>';
+        for(var i = 0;i < thData.length;i++){
+            str += "<th>"+thData[i]+"</th>"
+        }
+        str += "</tr></thead>";
+        str += '<tbody>';
+
+        var tdData = eval(JSON.parse(data)['TD_data']);
+        if(JSON.parse(data)['TD_data'] == '' || JSON.parse(data)['TD_data'] == undefined || JSON.parse(data)['TD_data'] == null){
+            str += "<tr data-index='0'>";
+            str += '<td><input type="checkbox"></td>';
+            for(var k = 0;k < thData.length;k++){
+                str += '<td></td>';
+            }
+            str += '</tr>';
+        }else{
+            for(var key in tdData){
+                str += "<tr data-index='"+key+"'>";
+                str += '<td><input type="checkbox" onclick="selectAll(this)"></td>';
+                for(var l = 0;l < eval(tdData[key]).length;l++){
+                    console.log(eval(tdData[key])[l]);
+                    str += '<td>'+eval(tdData[key])[l]+'</td>';
+                }
+                str += '</tr>';
+            }
+        }
+        str += '</tbody>';
+        document.getElementById('table').innerHTML = str;
+    }
+    function selectAll(checkbox){
+        var table  = document.getElementById('table');
+        var tbody = table.children[1];
+        if(checkbox.parentNode.nodeName == 'TH'){
+            for(var i =0; i < tbody.children.length; i++){
+                if ( checkbox.checked == true){
+                    tbody.children[i].children[0].children[0].checked = true;
+                }
+                if ( checkbox.checked == false){
+                    tbody.children[i].children[0].children[0].checked = false;
+                }
+            }
+        }else{
+            var arr = [];
+            for(var j =0; j < tbody.children.length; j++){
+                if(tbody.children[j].children[0].children[0].checked == false){
+                    break;
+                }else{
+                    arr.push(j);
+                }
+            }
+            if(arr.length == tbody.children.length){
+                table.children[0].children[0].children[0].children[0].checked = true;
+            } else {
+                table.children[0].children[0].children[0].children[0].checked = false;
+            }
+        }
+    }
+    function deleteTable(){
+        var arr = [];
+        var table  = document.getElementById('table');
+        if(table.rows.length != 0){
+            for(var i=table.rows.length-1;i>0;i--){
+                if(table.rows[i].cells[0].children[0].checked == true){
+                    table.deleteRow(i);
+                }
+            }
+        }
+    }
+    function addTable(){
+       var table = document.getElementById("table");
+       var newRow = table.insertRow(); //创建新行
+       if(table.rows.length != 0){
+        for(var i = 0;i < table.rows[0].cells.length;i++){
+               var newCell = newRow.insertCell();
+            if(i == 0){
+                    newCell.innerHTML = '<input type="checkbox">';
+               }else{
+                    if(document.getElementById('edit').innerText == 'EDIT'){
+                        newCell.setAttribute("contenteditable",'false');
+                    }else{
+                        newCell.setAttribute("contenteditable",'true');
+                    }
+                    newCell.innerHTML = '';
+               }
+           }
+       }
+    }
+    function editTable(self){
+        var table = document.getElementById("table");
+        if(self.innerText == "EDIT"){
+            for(var i=0;i<table.children[1].children.length;i++){
+                for(var j=1;j < table.children[1].children[i].children.length;j++){
+                    table.children[1].children[i].children[j].setAttribute("contenteditable",'true');
+                }
+            }
+            self.innerText = 'CANCEL EDIT';
+        }else{
+            for(var l=0;l<table.children[1].children.length;l++){
+                for(var k=1;k < table.children[1].children[l].children.length;k++){
+                    table.children[1].children[l].children[k].setAttribute("contenteditable",'false');
+                }
+            }
+            self.innerText = 'EDIT';
+        }
+    }
+    function saveTable(){
+        var table = document.getElementById("table");
+        var thName = [];
+        var TD_data = [];
+        var inputArr = {};
+        var tableName = document.getElementById('table').getAttribute('data-index');
+        for(var i=0;i < table.rows.length;i++){
+            if(i == 0){
+                for(var j=1;j < table.rows[i].cells.length;j++){
+                    thName.push(table.rows[i].cells[j].innerText);
+                }
+            }else{
+                var str = '{[';
+                for(var k = 1;k < table.rows[i].cells.length;k++){
+                    str += '"' + table.rows[i].cells[k].innerText + '",';
+                }
+                str += "]}";
+                TD_data.push(str);
+            }
+        }
+        inputArr['thName'] = thName;
+        inputArr['TD_data'] = TD_data;
+        inputArr['tableName'] = tableName;
+        ajaxPut(urls + '/things/editData/updateData/',JSON.stringify(inputArr));
+    }
+
+    function exportTables(self){
+        var tableName = document.getElementById('table').getAttribute('data-index');
+        console.log(self.value);
+        var exportType = self.value.toLowerCase();
+        if(document.getElementById('table').children.length != 0){
+            $('#table').tableExport({
+                type: exportType,
+                exportDataType: "all",
+                ignoreColumn: [0],
+                data_locale: 'utf-8',
+                fileName: tableName,
+                onCellHtmlData: function (cell, row, col, data){
+                    console.info(data);
+                    return data;
+                },
+            });
+        }
+    }
+    //ajax model
+    function ajax(url, method, msg, fn, id,innerHTMLId) {
+        var xmlhttp;
+        if(window.XMLHttpRequest){
+            xmlhttp=new XMLHttpRequest();
+        }else {
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function(){
+            if(xmlhttp.readyState==4 && xmlhttp.status==200){
+                fn(xmlhttp.responseText, url, id,innerHTMLId)
+            }
+        }
+        xmlhttp.open(method,url,true);
+        xmlhttp.send(msg);
+    }
+    //jq ajax put data to django views
+    function ajaxPut(url,msg) {
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                'data':msg,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                console.log(data)
+            },
+        })
+    }
+</script>
+
+{% endblock contentright_content %}

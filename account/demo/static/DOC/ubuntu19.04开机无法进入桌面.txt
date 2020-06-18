@@ -1,0 +1,13 @@
+sudo apt install lightdm lightdm-gtk-greeter
+gdm3/lightdm
+选择lightdm
+
+ sudo service lightdm start
+ sudo service lightdm status
+ sudo service lightdm stop
+
+资料链接：https://forum.ubuntu.org.cn/viewtopic.php?p=3216238
+
+或者：
+
+卸载已经安装的nvidia驱动

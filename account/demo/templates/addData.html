@@ -1,0 +1,108 @@
+{%extends 'thingFuncBtn.html' %}
+{% load static %}
+{% block homeChildStyle %}
+#tableTHfooter{margin-top:20px;}
+#tableTHcontent{height:60vh;overflow-x:hidden;overflow-y:scroll;}
+#right_menu ul li{float:left;}
+{% endblock homeChildStyle %}
+{% block contentright_content %}
+<div id="TableTH" style="width:100%;height:100%;">
+    <div id="tableTHcontent">
+        {% csrf_token %}
+        <p><label for="tableName">表名 :</label><input type="text" required></p>
+    </div>
+    <div id="tableTHfooter">
+        <input type="button" id="addTitle" onclick="addTitle()" value="添加标题"><input type="button" onclick="createInputData()" id="createTable" value="生成表格">
+    </div>
+</div>
+
+<script>
+    var urls = 'http://127.0.0.1:8000';
+    //jq ajax put data to django views
+    function ajaxPut(url,msg) {
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                'data':msg,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                console.log(data)
+                if(data  == "{'status':200}"){
+                    window.open("http://127.0.0.1:8000/things/editData/");
+                }
+            },
+        })
+    }
+    //create input element
+    function addTitle(){
+        var p = document.createElement('p');
+        p.innerHTML='<input type="text" required="true"><input type="button" style=\"min-width:5em;\" onclick="delTR(this)" value="del">';
+        document.getElementById('tableTHcontent').appendChild(p);
+    }
+    //create input Data
+    function createInputData(){
+        var inputParentObj = document.getElementById('tableTHcontent');
+        var thArr = [];
+        for(var i = 2;i < inputParentObj.children.length;i++){
+            var inputVal = inputParentObj.children[i].children[0].value;
+            thArr[i] = inputVal;
+        }
+        var inputArr = {};
+        var tableName = inputParentObj.children[1].children[1].value;
+        if(tableName == '' || tableName == undefined || tableName == null){
+            alert('表名不可以为空');
+            return false;
+        }else{
+            inputArr['tableName'] = tableName;
+        }
+        inputArr['thName'] =  thArr.notempty();
+        inputArr['TD_data'] = '';
+        console.log(inputArr);
+        ajax(urls + '/API/tableData/','GET','',returnDATA,tableName);
+        ajaxPut(urls + '/things/addData/sendData/',JSON.stringify(inputArr));
+    }
+    function returnDATA(data,url,tableName){
+        var resultData = JSON.parse(data)['results']
+        for(var j = 0;j < resultData.length;j++){
+            if(resultData[j]['tableName'] == tableName){
+                alert('表名已经存在，请填写其他名称');
+                return false;
+            }
+        }
+    }
+    //del self.parent
+    function delTR(self){
+        self.parentNode.parentNode.removeChild(self.parentNode);
+    }
+    //del array empty
+    Array.prototype.notempty = function() {
+        var arr = [];
+        this.map(function(val, index) {
+            if (val !== "" && val != undefined) {
+                arr.push(val);
+            }
+        });
+        return arr;
+    }
+    //ajax model
+    function ajax(url, method, msg, fn, id,innerHTMLId) {
+        var xmlhttp;
+        if(window.XMLHttpRequest){
+            xmlhttp=new XMLHttpRequest();
+        }else {
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function(){
+            if(xmlhttp.readyState==4 && xmlhttp.status==200){
+                fn(xmlhttp.responseText, url, id,innerHTMLId)
+            }
+        }
+        xmlhttp.open(method,url,true);
+        xmlhttp.send(msg);
+  }
+</script>
+{% endblock contentright_content %}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}INNOVISION 内部管理系统{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="{% static 'img/logo.jpg'%}" type="image/x-icon" />
+  <link rel="shortcut icon" href="{% static 'img/logo.jpg'%}" type="image/x-icon"/>
+  {% block head %}
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="http://hovertree.com/ziyuan/jquery/jquery-2.2.0.min.js"></script>
+  <script src="http://hovertree.com/texiao/easysector/jquery.easysector.1.0.0.js"></script>
+  <script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <link href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table-locale-all.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/extensions/export/bootstrap-table-export.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap-table/1.15.3/bootstrap-table-locale-all.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap-table/1.15.4/locale/bootstrap-table-zh-CN.min.js"></script>
+  <!--在客户端保存生成的导出文件-->
+  <script src="https://cdn.bootcss.com/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
+  <!--以XLSX（Excel 2007+ XML格式）格式导出表（SheetJS）-->
+  <script src="https://cdn.bootcss.com/xlsx/0.14.2/xlsx.core.min.js"></script>
+  <!--以PNG格式导出表格-->
+  <!--对于IE支持包括 html2canvas 之前的 es6-promise-->
+  <script src="https://cdn.bootcss.com/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
+  <script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+  <!--将表导出为PDF文件-->
+  <script src="https://unpkg.com/tableexport.jquery.plugin/libs/jsPDF/jspdf.min.js"></script>
+  <script src="https://unpkg.com/tableexport.jquery.plugin/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+  <!--无论期望的格式如何，最后都包含 tableexport.jquery.plugin（不是tableexport）-->
+  <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+  <script src="{% static 'js/all.js' %}"></script>
+  <script src="{% static 'js/jquery.media.js' %}"></script>
+
+  {% endblock head %}
+  <script type='text/javascript'>
+  {% block script %}
+  {% endblock %}
+  </script>
+  <style>
+	*{font-size:1em;margin:0;padding:0;}
+	{% block style %}
+	{% endblock %}
+  </style>
+</head>
+<body>
+  {% if user.is_authenticated %}
+    {% block mainbody %}
+    {% endblock mainbody %}
+  {% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">login</a>
+  {% endif %}
+</body>
+</html>

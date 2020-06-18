@@ -1,0 +1,57 @@
+{% load static %}
+<div class="left row" role="navigation">
+    <div class="navbar-text leftNav col-12">
+        <ul class="contentleft nav1">
+            <li><a href="/documents/">文档管理</a></li>
+            <li><a href="/things/">资产管理</a></li>
+            <li><a href="/check/">问卷调查</a></li>
+        </ul>
+    </div>
+</div>
+<style>
+.left{
+    height:85vh;
+    background:peru;
+}
+.leftNav {
+	border-left:1px solid #666;
+	border-right:1px solid #666;
+}
+.nav1 li {
+	line-height:50px;
+}
+.nav1>li {
+	width:100%;
+	min-height:50px;
+	border-bottom:1px solid #666;
+	text-align:center;
+	cursor:pointer;
+	background-color:peru;
+}
+.nav1 > li > a{
+    color:white;
+}
+a:hover{
+    text-decoration:none;
+}
+
+.nav2 {
+	display:none;
+}
+.nav2 li {
+	width:100%;
+	min-height:50px;
+	border-bottom:1px solid #666;
+	text-align:center;
+	cursor:pointer;
+}
+</style>
+<script>
+$(".nav1>li").click(function() {
+    if (!$(this).next().is(":hidden")) {
+        return;
+    }
+    $(this).siblings(".nav2").slideUp();
+    $(this).next().slideDown();
+})
+</script>

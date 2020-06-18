@@ -1,0 +1,57 @@
+{%extends 'base.html' %}
+{% load static %}
+{% block style %}
+.header{height:10vh;width:100%;}
+.header_right{float:right;line-height:10vh;margin-right:5px;}
+.header_left img{width:auto;float:left;height:10vh;}
+.header_left{width:auto;height:auto;}
+marquee{margin-top:-6px;}
+*{list-style:none;}
+.content_middle{width:75vw;float:right;}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .header_left img{width:40vw;float:left;}
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .header_left img{width:40vw;float:left;}
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .header_left img{width:30vw;float:left;}
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .header_left img{width:25vw;float:left;}
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .header_left img{width:20vw;float:left;}
+}
+{% endblock style %}
+{% block script %}
+
+{% endblock script %}
+{% block mainbody %}
+  {% if user.is_authenticated %}
+    {% include 'header.html' %}
+    <div class="content">
+      <div class="content_left" style="float:left;width:20vw;">
+        {% include 'content_left.html' %}
+      </div>
+      <div class="content_right" id="content_right" style="width:75vw;float:right;">
+        {{ user.get_group_permissions }}
+        {% if perms.demo.change_logentry %}
+          hello
+        {% endif %}
+      </div>
+    </div>
+  {% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">login</a>
+  {% endif %}
+{% endblock mainbody %}

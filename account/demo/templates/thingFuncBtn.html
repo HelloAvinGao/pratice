@@ -1,0 +1,22 @@
+{%extends 'home.html' %}
+{% load static %}
+{% block homeChildStyle %}
+#right_menu ul li{float:left;}
+{% endblock homeChildStyle %}
+{% block contentright %}
+<div class="menu row" id="right_menu">
+   <ul class="content_right_menu">
+      <li class="col-4"><a href="/things/addData/">添加表格</a></li>
+      <li class="col-4"><a href="/things/searchData/">搜索表格</a></li>
+      <li class="col-4"><a href="/things/editData/" style="clear:right;">修改表格</a></li>
+   </ul>
+</div>
+<div class="contentright_content">
+   {% block contentright_content %}
+
+   {% endblock contentright_content %}
+</div>
+<style>
+   #right_menu ul li{float:left;}
+</style>
+{% endblock contentright %}

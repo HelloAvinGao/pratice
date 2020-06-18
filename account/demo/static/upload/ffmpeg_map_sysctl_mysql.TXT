@@ -1,0 +1,24 @@
+ffmpeg -map:
+-map 0所有的视频音频流
+-map 0:0一般为视频 0:1 0:2一般为音频 0:3一般为subtitle
+-preset 设置输出的速度和质量的平衡
+-tune film适用于电影 zerolatency零延迟
+-acodec MP3以MP3音频模式输出
+-vcodec libx264以264视频模式输出
+
+
+制作udp视频：
+/system/bin/ffmpeg -re -i test.ts -vcodec copy -acodec copy  -f mpegts udp://127.0.0.1:10050?reuse=1
+/system/bin/ffmpeg -i udp://127.0.0.1:10050 -c copy -t 300 -y r.ts
+注意：以上两个命令同时运行，且端口一致
+修改udp buffer命令:
+sysctl -w net.core.rmem_max=26214400  #修改读buffer值
+sysctl -w net.core.wmem_max=26214400 #修改写buffer值
+sysctl -a #查看buffer值
+
+mysql -u root -p 进入mysql
+->password 
+->use database name;进入数据库
+->source a.sql;导入数据库
+->show databases;展示数据库
+->show tables;展示列表

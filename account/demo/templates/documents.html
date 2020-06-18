@@ -1,0 +1,356 @@
+{%extends 'home.html' %}
+{% load static %}
+{% block homeChildStyle %}
+
+{% endblock homeChildStyle %}
+{% block contentright %}
+    <div id="fileTitle" class="widthStyle" style="height:10vh;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" id="fileTitleItem">
+                <li class="breadcrumb-item active" data-index="0" aria-current="page">Home</li>
+<!--                <li class="breadcrumb-item active" aria-current="page">Data</li>-->
+            </ol>
+        </nav>
+    </div>
+    <div id="showFile" class="widthStyle" style="margin-top:20px;position:fixed;">
+    </div>
+    <div class="uploadDiv widthStyle" style="height:10vh;clear:left;float:right;position:fixed;bottom:0;right:20px;">
+<!--        <form  method="POST" enctype="multipart/form-data" style="float:right;" class="row">-->
+        <div class="row" style="float:right">
+            {% csrf_token %}
+            <select id="FileORfolder" onchange="fileORfolder()" class="form-control col-2 displayshow">
+                <option value="file">file</option>
+                <option value="folder">folder</option>
+            </select>
+            <div id="inputFile" class="displayshow col-3">
+                <input type="file" class="form-control hidden" name="file" id="file" required/>
+            </div>
+
+            <div class="input-group col-7 row">
+                <div class="input-group-prepend col-2">
+                    <span class="input-group-text displayshow">文件路径</span>
+                </div>
+                <input type="text" class="form-control displayshow col-4"  name="upTOpath" id="upTOpath"  placeholder="eg:/IT/DOC/" aria-label="Amount (to the nearest dollar)">
+                <div class="input-group-append col-2">
+                    <input type="submit" class="btn btn-outline-secondary displayshow"  value="上传">
+                </div>
+                <div class="input-group-append col-2">
+                    <button class="btn btn-outline-secondary displayshow" onclick="downloadfile()"  value="download">下载</button>
+                </div>
+                <div class="input-group-append col-2">
+                    <button class="btn btn-outline-secondary displayshow" onclick="delfile()"  value="download">删除</button>
+                </div>
+            </div>
+<!--            <label class="displayshow">上传文件到</label><input type="text" name="upTOpath" id="upTOpath" class="displayshow" placeholder="eg:/IT/DOC/" />-->
+<!--            <input type="submit" class="displayshow"   value="上传">-->
+<!--        </form>-->
+        </div>
+    </div>
+<script src="{% static 'js/jquery-1.11.0.min.js' %}"></script>
+<script src="{% static 'js/jquery.xgallerify.min.js' %}"></script>
+<script src="{% static 'js/jquery.media.js' %}"></script>
+<!--排序图片-->
+<script type="text/javascript">
+var gallery = $('.photos').gallerify({
+	margin:10,
+	mode:'default',
+	lastRow:'adjust'
+});
+</script>
+<!--加载并显示文件-->
+<script>
+var List = {{ url|safe }};
+var url = "http://127.0.0.1:8000/";
+showFolder(List,'showFile');
+function showFolder(data,id){
+    var str = "";
+    var liArr = [];
+    for(var key in data){
+        if(typeof(data[key]) == 'object'){
+            str += '<div class="photo" onclick="changeStyle(this)" ondblclick="loadfile(this)">';
+            str += '<img src="{% static "img/folder.png" %}"  alt="'+key+'">';
+            str += '<div class="title">'+key+'</div>'
+            str += '</div>';
+        }else if(typeof(data[key]) == 'string'){
+            str += '<div class="photo" onclick="changeStyle(this)" ondblclick="showfile(this)">';
+            str += '<img src="{% static "img/file.png" %}"  alt="'+key+'">';
+            str += '<div class="title">'+key+'</div>'
+            str += '</div>';
+        }else{
+            str += key;
+        }
+    }
+    str += "{% if perms.demo.change_logentry %}";
+    str += "{% endif %}";
+    document.getElementById(id).innerHTML = str;
+}
+function loadfile(self){
+    var liArr = 'List';
+    var liNum = document.getElementById('fileTitleItem').children;
+    var str = '';
+    if(liNum.length > 1){
+        for(var i = 0;i < liNum.length;i++){
+            if(liNum[i].innerText == 'home'){
+                liArr += '';
+            }else{
+                liArr += '["' + liNum[i].innerText + '"]';
+            }
+            if(i == 0){
+                str += '<li class="breadcrumb-item" data-index="'+i+'"  onclick="loadFolder(this)"><a href="#">home</a></li>';
+            } else{
+                str += '<li class="breadcrumb-item" data-index="'+i+'"  onclick="loadFolder(this)"><a href="#">'+liNum[i].innerText+'</a></li>';
+            }
+        }
+        liArr +=  '["'+self.children[1].innerHTML+'"]';
+    }else{
+        liArr += '';
+        str += '<li class="breadcrumb-item" data-index="0" onclick="loadFolder(this)"><a href="#">home</a></li>';
+        liArr +=  '["'+self.children[1].innerHTML+'"]';
+    }
+
+    str += '<li class="breadcrumb-item active" aria-current="page">'+self.children[1].innerHTML+'</li>';
+    document.getElementById('fileTitleItem').innerHTML = str;
+    showFolder(eval(liArr),'showFile');
+}
+function loadFolder(self){
+    var selfVal = document.getElementById('fileTitleItem').children[self.getAttribute("data-index")].innerText;
+    var liIndex = self.getAttribute("data-index");
+    var liJSON = 'List';
+    var str = '';
+    if(liIndex == 0){
+        liJSON += '';
+        if(selfVal == 'home'){
+            liJSON += '';
+        }else{
+            liJSON +=  '["'+selfVal+'"]';
+        }
+    }else{
+        for(var i = 0;i < liIndex;i++){
+            var val =  document.getElementById('fileTitleItem').children[i].innerText;
+            if(val == 'home'){
+                liJSON += '';
+                str += '<li class="breadcrumb-item" data-index="'+i+'"  onclick="loadFolder(this)"><a href="#">home</a></li>';
+            }else{
+                liJSON +=  '["' + val + '"]';
+                str += '<li class="breadcrumb-item" data-index="'+i+'"  onclick="loadFolder(this)"><a href="#">'+val+'</a></li>';
+            }
+        }
+        liJSON +=  '["'+selfVal+'"]';
+    }
+    str += '<li class="breadcrumb-item active" aria-current="page">'+selfVal+'</li>';
+    document.getElementById('fileTitleItem').innerHTML = str;
+    showFolder(eval(liJSON),'showFile');
+}
+
+function showfile(self){
+    loadfile(self);
+    var liNum = document.getElementById('fileTitleItem').children;
+    var liJSON = 'upload';
+    for(var i = 0;i < liNum.length;i++){
+        if(liNum[i].innerText == 'home'){
+            liJSON += '';
+        }else{
+            liJSON += '/' + liNum[i].innerText;
+        }
+    }
+    var filetype =  self.children[1].innerText.split('.')[self.children[1].innerText.split('.').length - 1];
+    if(filetype == 'pdf'){
+        document.getElementById('showFile').innerHTML = '<div id="handout_wrap_inner"></div>';
+        $('#handout_wrap_inner').media({
+                width: '100%',
+                height: '100%',
+                autoplay: true,
+                src:'http://127.0.0.1:8000/static/'+liJSON,
+        });
+    }else{
+        console.log(liJSON);
+        document.getElementById('showFile').innerHTML = '<iframe width="100%" height="100%" src="'+url+'static/'+liJSON+'"></iframe>';
+    }
+}
+function changeStyle(self){
+    var selfVal = self.children[1].innerText;
+    for(var i = 0; i < self.parentNode.children.length; i++){
+        self.parentNode.children[i].style = "background:white;";
+    }
+    self.style = "background:lightgrey;";
+    self.setAttribute('data-index','bglightgrey');
+}
+</script>
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<!--上传文件/文件夹-->
+<script>
+        function fileORfolder(){
+            var obj = document.getElementById('FileORfolder');
+            var index = obj.selectedIndex;
+            var value = obj.options[index].value;
+            if(value == 'file' || value == undefined || value == '' || value == null){
+                document.getElementById('inputFile').innerHTML = '<input type="file" class="form-control hidden" name="file" id="file" required/>';
+            }else if(value == 'folder'){
+                document.getElementById('inputFile').innerHTML = '<input type="file" class="form-control hidden" name="file" id="folder"  required multiple = "true" webkitdirectory="true" directory = "true"  />';
+            }
+            var upTOpath = document.getElementById('upTOpath').value;
+        }
+        $('input[type=submit]').click(function () {
+            var choose =  document.getElementById('inputFile').childNodes[0].id;
+            if(choose == undefined){
+                choose = 'file';
+            }
+            try {
+                var upTOpath = $('input[name=upTOpath]').val();
+                var file_obj = $('input[type=file]')[0].files;
+                var csrf = $('input[name=csrfmiddlewaretoken]').val();
+            }catch(err){
+                alert(err);
+                return 0;
+            }
+            var formdata = new FormData();
+            for(var i = 0;i < file_obj.length;i++){
+               formdata.append("file_obj", file_obj[i]);
+               formdata.append("paths", file_obj[i]['webkitRelativePath']);
+            }
+            formdata.append("upTOpath", upTOpath);
+            formdata.append("csrfmiddlewaretoken", csrf);
+            formdata.append("choose",choose);
+            $.ajax({
+                url: '/documents/upload/',
+                type: 'post',
+                data: formdata,
+                processData: false, // 不处理数据( 必须有)
+                contentType:false,  //不设置内容类型 ( 必须要)
+                header:{
+                    'X-CSRFToken': $.cookie('csrftoken'),
+                },
+                success:function (res) {
+                    window.location.reload()
+                }
+            })
+        })
+    </script>
+<style>
+	.photo {
+		position: relative;
+		float:left;
+		margin-left:40px;
+		text-align:center;
+		margin-bottom:40px;
+	}
+	.photo img{
+	    width:5vw;
+	}
+	.title{
+		position: absolute;
+		left:0px;
+		text-align: center;
+		right:0px;
+		font-weight: bold;
+		color:#979797;
+		font-size:0.5em;
+	}
+	.photos {
+		margin:auto;
+		font-size:0px;
+		height:60vh;
+	}
+	.widthStyle{width:77vw;}
+	.displayshow{float:left;}
+	 #showFile {
+        width: 77vw;
+        height: 60vh;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+    #showFile::-webkit-scrollbar {
+        display: none;
+    }
+    #handout_wrap_inner{
+        width:100%;
+        height:100%;
+    }
+</style>
+<!--下载/删除文件-->
+<script>
+    function downloadfile(){
+        var url = '/documents/download/';
+        sendinfo(url);
+    }
+    function delfile(){
+        var url = '/documents/delete/';
+        sendinfo(url);
+    }
+    function sendinfo(url){
+        var downloadPath = "";
+        var inputPath = document.getElementById('upTOpath').value;
+        if(inputPath == '' || inputPath == undefined || inputPath == null){
+            var liNum = document.getElementById('fileTitleItem').children;
+            var liJSON = 'upload';
+            var filename = 'download';
+            for(var i = 0;i < liNum.length;i++){
+                if(liNum[i].innerText == 'home' || i == 0){
+                    liJSON += '';
+                }else{
+                    liJSON += '/' + liNum[i].innerText;
+                }
+            }
+            var showFileDIV = document.getElementById('showFile');
+            for(var j = 0;j < showFileDIV.children.length;j++){
+                if(showFileDIV.children[j].getAttribute('data-index') == 'bglightgrey'){
+                    filename = showFileDIV.children[j].children[1].innerText;
+                    downloadPath = liJSON + '/' + filename;
+                }else{
+                    downloadPath = liJSON;
+                    filename = downloadPath.split('/')[downloadPath.split('/').length - 1];
+                }
+            }
+             if(downloadPath == 'upload'){
+                if(url == '/documents/delete/'){
+                    alert("不可以删除根目录");
+                    return false;
+                }
+             }
+        }else{
+            downloadPath = 'upload'+inputPath;
+            try {
+                if(inputPath.indexOf('.') == -1){
+                    filename = inputPath.split('/')[self.children[1].innerText.split('/').length - 1];
+                }else{
+                    var temp = inputPath.split('.')[inputPath.split('.').length - 2];
+                    filename = temp.split('/')[temp.split('/').length - 1];
+                }
+            }catch(err){
+                alert(err);
+                return 0;
+            }
+        }
+        var msg = '{"dirPath":"'+downloadPath+'","zipName":"'+filename+'.zip"}';
+        console.log(msg);
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                'data':msg,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                if(url == '/documents/download/'){
+                    var json =  eval("(" + data + ")");
+                    if(json.filetype == 'file'){
+                        url = "http://127.0.0.1:8000/static/download/"+filename;
+                    }else{
+                        url = "http://127.0.0.1:8000/static/download/"+filename+".zip";
+                    }
+                    var link = document.createElement('a');
+                    link.setAttribute("download", "");
+                    link.href = url;
+                    link.click();
+                }
+                if(url == '/documents/delete/'){
+                    window.location.reload();
+                }
+            }
+        })
+    }
+</script>
+<script src="{% static 'js/doc.js' %}"></script>
+{% endblock contentright %}

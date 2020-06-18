@@ -1,0 +1,22 @@
+0.<uses-permission android:name="android.permission.CAMERA"></uses-permission>设置打开摄像头的权限
+1.定义预览照片：texture,sufaceView；
+api:
+public TextureView (Context context)
+2.获取camera的id
+api:
+public CameraCharacteristics getCameraCharacteristics (String cameraId)
+
+public String[] getCameraIdList ()
+3.打开摄像头opencamera，使用cameraManager管理摄像头
+api:
+public void openCamera (String cameraId, Executor executor,               CameraDevice.StateCallback callback)
+
+public final class CameraManager 
+4.开启预览stateCallback
+api:public static abstract class CameraDevice.StateCallback
+extends Object 
+5.显示图像到界面上；
+api:
+public static final class CaptureRequest.Builder extends Object 
+public CameraCaptureSession ()
+

@@ -1,0 +1,55 @@
+{%extends 'home.html' %}
+{% load static %}
+{% block homeChildStyle %}
+
+{% endblock homeChildStyle %}
+{% block contentright %}
+<p>hello</p>
+<div id="getJson"></div>
+<style>
+    p{color:orange;}
+</style>
+<script>
+  var APIurl = "http://127.0.0.1:8000/API/checkResults/";
+  function ajax(url, method, msg, fn, id,innerHTMLId) {
+    var xmlhttp;
+    if(window.XMLHttpRequest){
+        xmlhttp=new XMLHttpRequest();
+    }else {
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function(){
+        if(xmlhttp.readyState==4 && xmlhttp.status==200){
+            fn(xmlhttp.responseText, url, id,innerHTMLId)
+        }
+    }
+    xmlhttp.open(method,url,true);
+    xmlhttp.send(msg);
+  }
+  ajax(APIurl,'GET','', listcomps);
+<!--  setInterval(ajax(APIurl,'GET','', listcomps),1000);-->
+  function listcomps(dataobj,url){
+    var data = JSON.parse(dataobj);
+    var str='';
+    for(var i = 0;i < data['results'].length;i++){
+        str += '<table border=1 id="'+data["results"][i]["tableName"]+'"><tr>';
+        var th_data = eval(data['results'][i]['TH_title']);
+        for(var j = 0;j < th_data.length;j++){
+            str += "<th>"+th_data[j]+"</th>";
+        }
+        str += '</tr>';
+        var td_data_all = data['results'][i]['TD_data'];
+        var td_data_JSON = JSON.parse(td_data_all);
+        for(var key in td_data_JSON){
+            str += '<tr>';
+            for(var k = 0;k < eval(td_data_JSON[key]).length;k++){
+                str += '<td>'+eval(td_data_JSON[key])[k]+'</td>';
+            }
+            str += '</tr>';
+        }
+        str += '</table>';
+    }
+    document.getElementById('getJson').innerHTML = str;
+  }
+</script>
+{% endblock contentright %}
