@@ -1,0 +1,319 @@
+vue.js调用
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+
+简单使用：
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    message: '<h1>菜鸟教程</h1>'
+  }
+})
+</script>
+
+属性：
+v-html='message'
+样例：
+<div id="app">
+    <div v-html="message"></div>
+</div>
+    
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    message: '<h1>菜鸟教程</h1>'
+  }
+})
+</script>
+属性：
+v-bind:class="{'class1': uses}"
+样例：
+<style>
+.class2{
+  background: #444;
+  color: #eee;
+}
+</style>
+<div id="app">
+  <label for="r1">修改颜色</label><input type="checkbox" v-model="uses" id="r1">
+  <br><br>
+  <div v-bind:class="{'class1': uses}">
+    v-bind:class 指令
+  </div>
+</div>
+    
+<script>
+new Vue({
+    el: '#app',
+  data:{
+      uses: false
+  }
+});
+</script>
+
+属性：
+v-if='seen'
+
+样例：
+<div id="app">
+    <p v-if="seen == 1">现在你看到我了</p>
+    <p v-else-if='seen == -1'>it is else if</p>
+    <p v-else>it is else</p>
+</div>
+    
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    seen: 1
+  }
+})
+</script>
+
+事件v-on:
+样例：
+<div id="app">
+   <!-- `greet` 是在下面定义的方法名 -->
+  <button v-on:click="greet">Greet</button>
+</div>
+ 
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    name: 'Vue.js'
+  },
+  // 在 `methods` 对象中定义方法
+  methods: {
+    greet: function (event) {
+      // `this` 在方法里指当前 Vue 实例
+      alert('Hello ' + this.name + '!')
+      // `event` 是原生 DOM 事件
+      if (event) {
+          alert(event.target.tagName)
+      }
+    }
+  }
+})
+// 也可以用 JavaScript 直接调用方法
+app.greet() // -> 'Hello Vue.js!'
+</script>
+
+特殊keyup：
+<input v-on:keyup.13="submit">
+
+加上.lazy后相当于 双向数据绑定不起作用
+<input v-model.lazy="msg" >
+将用户的输入值转为 Number 类型
+<input v-model.number="age" type="number">
+自动过滤首尾空格：
+<input v-model.trim="msg">
+
+props：验证函数
+Vue.component('my-component', {
+  props: {
+    // 基础的类型检查 (`null` 和 `undefined` 会通过任何类型验证)
+    propA: Number,
+    // 多个可能的类型
+    propB: [String, Number],
+    // 必填的字符串
+    propC: {
+      type: String,
+      required: true
+    },
+    // 带有默认值的数字
+    propD: {
+      type: Number,
+      default: 100
+    },
+    // 带有默认值的对象
+    propE: {
+      type: Object,
+      // 对象或数组默认值必须从一个工厂函数获取
+      default: function () {
+        return { message: 'hello' }
+      }
+    },
+    // 自定义验证函数
+    propF: {
+      validator: function (value) {
+        // 这个值必须匹配下列字符串中的一个
+        return ['success', 'warning', 'danger'].indexOf(value) !== -1
+      }
+    }
+  }
+})
+
+自定义事件
+父组件是使用 props 传递数据给子组件，但如果子组件要把数据传递回去，就需要使用自定义事件！
+
+我们可以使用 v-on 绑定自定义事件, 每个 Vue 实例都实现了事件接口(Events interface)，即：
+
+使用 $on(eventName) 监听事件
+使用 $emit(eventName) 触发事件
+<div id="app">
+    <div id="counter-event-example">
+      <p>{{ total }}</p>
+      <button-counter v-on:increment="incrementTotal"></button-counter>
+      <button-counter v-on:increment="incrementTotal"></button-counter>
+    </div>
+</div>
+ 
+<script>
+Vue.component('button-counter', {
+  template: '<button v-on:click="incrementHandler">{{ counter }}</button>',
+  data: function () {
+    return {
+      counter: 0
+    }
+  },
+  methods: {
+    incrementHandler: function () {
+      this.counter += 1
+      this.$emit('increment')
+    }
+  },
+})
+new Vue({
+  el: '#counter-event-example',
+  data: {
+    total: 0
+  },
+  methods: {
+    incrementTotal: function () {
+      this.total += 1
+    }
+  }
+})
+</script>
+如果你想在某个组件的根元素上监听一个原生事件。可以使用 .native 修饰 v-on 。例如：
+<my-component v-on:click.native="doTheThing"></my-component>
+
+自定义指令：
+<div id="app">
+    <p>页面载入时，input 元素自动获取焦点：</p>
+    <input v-focus>
+</div>
+ 
+<script>
+// 注册一个全局自定义指令 v-focus
+Vue.directive('focus', {
+  // 当绑定元素插入到 DOM 中。
+  inserted: function (el) {
+    // 聚焦元素
+    el.focus()
+  }
+})
+// 创建根实例
+new Vue({
+  el: '#app'
+})
+</script>
+
+钩子函数
+指令定义函数提供了几个钩子函数（可选）：
+
+bind: 只调用一次，指令第一次绑定到元素时调用，用这个钩子函数可以定义一个在绑定时执行一次的初始化动作。
+
+inserted: 被绑定元素插入父节点时调用（父节点存在即可调用，不必存在于 document 中）。
+
+update: 被绑定元素所在的模板更新时调用，而不论绑定值是否变化。通过比较更新前后的绑定值，可以忽略不必要的模板更新（详细的钩子函数参数见下）。
+
+componentUpdated: 被绑定元素所在模板完成一次更新周期时调用。
+
+unbind: 只调用一次， 指令与元素解绑时调用。
+
+钩子函数参数
+钩子函数的参数有：
+
+el: 指令所绑定的元素，可以用来直接操作 DOM 。
+binding: 一个对象，包含以下属性：
+name: 指令名，不包括 v- 前缀。
+value: 指令的绑定值， 例如： v-my-directive="1 + 1", value 的值是 2。
+oldValue: 指令绑定的前一个值，仅在 update 和 componentUpdated 钩子中可用。无论值是否改变都可用。
+expression: 绑定值的表达式或变量名。 例如 v-my-directive="1 + 1" ， expression 的值是 "1 + 1"。
+arg: 传给指令的参数。例如 v-my-directive:foo， arg 的值是 "foo"。
+modifiers: 一个包含修饰符的对象。 例如： v-my-directive.foo.bar, 修饰符对象 modifiers 的值是 { foo: true, bar: true }。
+vnode: Vue 编译生成的虚拟节点。
+oldVnode: 上一个虚拟节点，仅在 update 和 componentUpdated 钩子中可用。
+以下实例演示了这些参数的使用：
+
+实例
+<div id="app"  v-runoob:hello.a.b="message">
+</div>
+ 
+<script>
+Vue.directive('runoob', {
+  bind: function (el, binding, vnode) {
+    var s = JSON.stringify
+    el.innerHTML =
+      'name: '       + s(binding.name) + '<br>' +
+      'value: '      + s(binding.value) + '<br>' +
+      'expression: ' + s(binding.expression) + '<br>' +
+      'argument: '   + s(binding.arg) + '<br>' +
+      'modifiers: '  + s(binding.modifiers) + '<br>' +
+      'vnode keys: ' + Object.keys(vnode).join(', ')
+  }
+})
+new Vue({
+  el: '#app',
+  data: {
+    message: '菜鸟教程!'
+  }
+})
+</script>
+点击过的导航链接都会加上样式 class ="router-link-exact-active router-link-active"
+
+混入 (mixins)定义了一部分可复用的方法或者计算属性。混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被混入该组件本身的选项。
+
+来看一个简单的实例：
+
+实例
+var vm = new Vue({
+    el: '#databinding',
+    data: {
+    },
+    methods : {
+    },
+});
+// 定义一个混入对象
+var myMixin = {
+    created: function () {
+        this.startmixin()
+    },
+    methods: {
+        startmixin: function () {
+            document.write("欢迎来到混入实例");
+        }
+    }
+};
+var Component = Vue.extend({
+    mixins: [myMixin]
+})
+var component = new Component();
+
+ajax => axios:
+
+GET:
+<script type = "text/javascript">
+new Vue({
+  el: '#app',
+  data () {
+    return {
+      info: null
+    }
+  },
+  mounted () {
+    axios
+      .get('https://www.runoob.com/try/ajax/json_demo.json')
+      .then(response => (this.info = response.data.sites))
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
+  }
+})
+
+response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
+pipe 是将 response.data 转换为流
+fs 是 Node.js 的 file-system 模块
