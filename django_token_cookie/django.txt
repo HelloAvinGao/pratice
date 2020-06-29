@@ -1,0 +1,85 @@
+pip install django-redis
+
+#python
+import redis
+
+
+r = redis.Redis(host='10.40.0.124',port=6379,db=0, password='123456')
+#创建Redis类下的实例，4个参数分别是主机地址、端口、数据库（redis默认有16个数据库，第一的编号就是0）、redis刚才设置的连接密码
+r.set('a','1')
+#最基本的命令，设置一个新的键值对，相当于python里的a=1
+print(r.get('a'))
+#获取a键的值，相当于python的 print (a)
+
+token：
+https://www.cnblogs.com/Paul-watermelon/p/11286698.html
+https://blog.csdn.net/weixin_30445169/article/details/101311356
+
+登陆：
+https://www.cnblogs.com/songxuexiang/p/9239407.html
+
+
+# Django中：
+# cookie的存：
+#
+# response = HttpResponse('登陆成功')     #改成重定向等都可以
+# response.set_cookie('username',username)
+# #response.set_signed_cookie('username',username,salt='asdasd')    #带签名的cookie(加盐)
+# response.set_cookie('password',password)
+# return response
+# cookie的取：
+#
+# username = request.COOKIES.get('username')
+# #username = request.get_signed_cookie('username',salt='asdasd')     #获取带签名的cookie（盐要相同，不然拿不到）
+# password = request.COOKIES.get('password')
+# cookie的删除：
+#
+# response = HttpResponse('清除成功')      #改成重定向等都可以
+# response.delete_cookie('username')
+# response.delete_cookie('password')
+# return response
+#  PS：不设置过期时间的话，默认关闭浏览器就失效
+#
+# session的存：
+#
+# request.session['username'] = username
+# #上面这一句代码完成了以下事情：
+# #1、生成随机字符串
+# #2、将随机字符串写到用户浏览器cookie
+# #3、将随机字符串保存到服务器session
+# #4、在服务器随机字符串对应的字典中设置相关内容
+# request.session['password'] = password
+# return HttpResponse('登陆成功')
+#
+# session的取：
+#
+# username = request.session.get('username')
+# #username = request.session['username']      #两种方式都可以取，但是这种如果没取到会报错
+# password = request.session.get('password')
+# session的删除：
+#
+# request.session.flush()    #删除所有session
+# #del request.session['username']   #删除key为username的session
+# return HttpResponse('清除成功')
+
+# 使用django自带的forms创建froms
+# from django import forms  # 引入forms组件
+#
+#
+# class UserForm(forms.Form):  # 必须继承forms.Form
+#     # forms.CharField和forms.EmailField会渲染为input标签
+#     name = forms.CharField(min_length=4)  # 默认label是字段名
+#     pwd = forms.CharField(min_length=4, label="密码")  # 如果需要中文label可以手动设置
+#     r_pwd = forms.CharField(min_length=4, label="确认密码")
+#     email = forms.EmailField(label="邮箱")
+#     tel = forms.CharField(label="手机")
+
+# def 
+# form = UserForm()
+
+# html file
+# <form action="" method="post">
+#     {% csrf_token %}
+#     {{ form.as_p }}
+#     <input type="submit">
+# </form>
