@@ -1,0 +1,938 @@
+{
+    "2020072414": {
+        "top": {
+            "%Cpu(s)": {
+                "ni": "0.0",
+                "sy": "0.4",
+                "hi": "0.0",
+                "wa": "0.1",
+                "id": "98.6",
+                "si": "0.0",
+                "us": "0.9",
+                "st": "0.0"
+            },
+            "running_time": "39",
+            "KiB Swap": {
+                "total": "2097148",
+                "avail Mem": "6533340",
+                "free": "2097148",
+                "used": "0"
+            },
+            "load_aver": [
+                " 0.03",
+                " 0.08",
+                " 0.08"
+            ],
+            "KiB Mem ": {
+                "buff/cache": "4447492",
+                "total": "7961668",
+                "free": "2385584",
+                "used": "1128592"
+            }
+        },
+        "df_h": {
+            "udev": {
+                "Use%": "0%",
+                "Used": "0",
+                "Avail": "3.8G",
+                "Filesystem": "udev",
+                "Mounted on": "/dev",
+                "Size": "3.8G"
+            },
+            "/dev/sda1": {
+                "Use%": "2%",
+                "Used": "7.3M",
+                "Avail": "504M",
+                "Filesystem": "/dev/sda1",
+                "Mounted on": "/boot/efi",
+                "Size": "511M"
+            },
+            "/dev/sda2": {
+                "Use%": "1%",
+                "Used": "12G",
+                "Avail": "1.7T",
+                "Filesystem": "/dev/sda2",
+                "Mounted on": "/",
+                "Size": "1.8T"
+            },
+            "/dev/loop20": {
+                "Use%": "100%",
+                "Used": "97M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop20",
+                "Mounted on": "/snap/core/9436",
+                "Size": "97M"
+            },
+            "Filesystem": {
+                "Use%": "Use%",
+                "Used": "Used",
+                "Avail": "Avail",
+                "Filesystem": "Filesystem",
+                "Mounted on": "Mounted",
+                "Size": "Size"
+            },
+            "tmpfs": {
+                "Use%": "0%",
+                "Used": "0",
+                "Avail": "778M",
+                "Filesystem": "tmpfs",
+                "Mounted on": "/run/user/1000",
+                "Size": "778M"
+            },
+            "/dev/loop5": {
+                "Use%": "100%",
+                "Used": "1.0M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop5",
+                "Mounted on": "/snap/gnome-logs/100",
+                "Size": "1.0M"
+            },
+            "/dev/loop4": {
+                "Use%": "100%",
+                "Used": "97M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop4",
+                "Mounted on": "/snap/core/9665",
+                "Size": "97M"
+            },
+            "/dev/loop7": {
+                "Use%": "100%",
+                "Used": "2.5M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop7",
+                "Mounted on": "/snap/gnome-calculator/748",
+                "Size": "2.5M"
+            },
+            "/dev/loop6": {
+                "Use%": "100%",
+                "Used": "141M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop6",
+                "Mounted on": "/snap/gnome-3-26-1604/100",
+                "Size": "141M"
+            },
+            "/dev/loop1": {
+                "Use%": "100%",
+                "Used": "384K",
+                "Avail": "0",
+                "Filesystem": "/dev/loop1",
+                "Mounted on": "/snap/gnome-characters/539",
+                "Size": "384K"
+            },
+            "/dev/loop0": {
+                "Use%": "100%",
+                "Used": "2.5M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop0",
+                "Mounted on": "/snap/gnome-calculator/730",
+                "Size": "2.5M"
+            },
+            "/dev/loop3": {
+                "Use%": "100%",
+                "Used": "2.3M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop3",
+                "Mounted on": "/snap/gnome-system-monitor/145",
+                "Size": "2.3M"
+            },
+            "/dev/loop2": {
+                "Use%": "100%",
+                "Used": "256M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop2",
+                "Mounted on": "/snap/gnome-3-34-1804/33",
+                "Size": "256M"
+            },
+            "/dev/loop9": {
+                "Use%": "100%",
+                "Used": "141M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop9",
+                "Mounted on": "/snap/gnome-3-26-1604/98",
+                "Size": "141M"
+            },
+            "/dev/loop8": {
+                "Use%": "100%",
+                "Used": "55M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop8",
+                "Mounted on": "/snap/core18/1754",
+                "Size": "55M"
+            },
+            "/dev/loop10": {
+                "Use%": "100%",
+                "Used": "63M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop10",
+                "Mounted on": "/snap/gtk-common-themes/1506",
+                "Size": "63M"
+            },
+            "/dev/loop13": {
+                "Use%": "100%",
+                "Used": "55M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop13",
+                "Mounted on": "/snap/gtk-common-themes/1502",
+                "Size": "55M"
+            },
+            "/dev/loop12": {
+                "Use%": "100%",
+                "Used": "55M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop12",
+                "Mounted on": "/snap/core18/1880",
+                "Size": "55M"
+            },
+            "/dev/loop15": {
+                "Use%": "100%",
+                "Used": "384K",
+                "Avail": "0",
+                "Filesystem": "/dev/loop15",
+                "Mounted on": "/snap/gnome-characters/550",
+                "Size": "384K"
+            },
+            "/dev/loop14": {
+                "Use%": "100%",
+                "Used": "2.3M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop14",
+                "Mounted on": "/snap/gnome-system-monitor/148",
+                "Size": "2.3M"
+            },
+            "/dev/loop17": {
+                "Use%": "100%",
+                "Used": "162M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop17",
+                "Mounted on": "/snap/gnome-3-28-1804/128",
+                "Size": "162M"
+            },
+            "/dev/loop16": {
+                "Use%": "100%",
+                "Used": "256M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop16",
+                "Mounted on": "/snap/gnome-3-34-1804/36",
+                "Size": "256M"
+            },
+            "/dev/loop19": {
+                "Use%": "100%",
+                "Used": "1.0M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop19",
+                "Mounted on": "/snap/gnome-logs/93",
+                "Size": "1.0M"
+            },
+            "/dev/loop18": {
+                "Use%": "100%",
+                "Used": "161M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop18",
+                "Mounted on": "/snap/gnome-3-28-1804/116",
+                "Size": "161M"
+            }
+        }
+    },
+    "2020072415": {
+        "top": {
+            "%Cpu(s)": {
+                "ni": "0.0",
+                "sy": "0.4",
+                "hi": "0.0",
+                "wa": "0.1",
+                "id": "98.6",
+                "si": "0.0",
+                "us": "0.9",
+                "st": "0.0"
+            },
+            "running_time": "39",
+            "KiB Swap": {
+                "total": "2097148",
+                "avail Mem": "6533340",
+                "free": "2097148",
+                "used": "0"
+            },
+            "load_aver": [
+                " 0.03",
+                " 0.08",
+                " 0.08"
+            ],
+            "KiB Mem ": {
+                "buff/cache": "4447492",
+                "total": "7961668",
+                "free": "2385584",
+                "used": "1128592"
+            }
+        },
+        "df_h": {
+            "udev": {
+                "Use%": "0%",
+                "Used": "0",
+                "Avail": "3.8G",
+                "Filesystem": "udev",
+                "Mounted on": "/dev",
+                "Size": "3.8G"
+            },
+            "/dev/sda1": {
+                "Use%": "2%",
+                "Used": "7.3M",
+                "Avail": "504M",
+                "Filesystem": "/dev/sda1",
+                "Mounted on": "/boot/efi",
+                "Size": "511M"
+            },
+            "/dev/sda2": {
+                "Use%": "1%",
+                "Used": "12G",
+                "Avail": "1.7T",
+                "Filesystem": "/dev/sda2",
+                "Mounted on": "/",
+                "Size": "1.8T"
+            },
+            "/dev/loop20": {
+                "Use%": "100%",
+                "Used": "97M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop20",
+                "Mounted on": "/snap/core/9436",
+                "Size": "97M"
+            },
+            "Filesystem": {
+                "Use%": "Use%",
+                "Used": "Used",
+                "Avail": "Avail",
+                "Filesystem": "Filesystem",
+                "Mounted on": "Mounted",
+                "Size": "Size"
+            },
+            "tmpfs": {
+                "Use%": "0%",
+                "Used": "0",
+                "Avail": "778M",
+                "Filesystem": "tmpfs",
+                "Mounted on": "/run/user/1000",
+                "Size": "778M"
+            },
+            "/dev/loop5": {
+                "Use%": "100%",
+                "Used": "1.0M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop5",
+                "Mounted on": "/snap/gnome-logs/100",
+                "Size": "1.0M"
+            },
+            "/dev/loop4": {
+                "Use%": "100%",
+                "Used": "97M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop4",
+                "Mounted on": "/snap/core/9665",
+                "Size": "97M"
+            },
+            "/dev/loop7": {
+                "Use%": "100%",
+                "Used": "2.5M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop7",
+                "Mounted on": "/snap/gnome-calculator/748",
+                "Size": "2.5M"
+            },
+            "/dev/loop6": {
+                "Use%": "100%",
+                "Used": "141M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop6",
+                "Mounted on": "/snap/gnome-3-26-1604/100",
+                "Size": "141M"
+            },
+            "/dev/loop1": {
+                "Use%": "100%",
+                "Used": "384K",
+                "Avail": "0",
+                "Filesystem": "/dev/loop1",
+                "Mounted on": "/snap/gnome-characters/539",
+                "Size": "384K"
+            },
+            "/dev/loop0": {
+                "Use%": "100%",
+                "Used": "2.5M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop0",
+                "Mounted on": "/snap/gnome-calculator/730",
+                "Size": "2.5M"
+            },
+            "/dev/loop3": {
+                "Use%": "100%",
+                "Used": "2.3M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop3",
+                "Mounted on": "/snap/gnome-system-monitor/145",
+                "Size": "2.3M"
+            },
+            "/dev/loop2": {
+                "Use%": "100%",
+                "Used": "256M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop2",
+                "Mounted on": "/snap/gnome-3-34-1804/33",
+                "Size": "256M"
+            },
+            "/dev/loop9": {
+                "Use%": "100%",
+                "Used": "141M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop9",
+                "Mounted on": "/snap/gnome-3-26-1604/98",
+                "Size": "141M"
+            },
+            "/dev/loop8": {
+                "Use%": "100%",
+                "Used": "55M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop8",
+                "Mounted on": "/snap/core18/1754",
+                "Size": "55M"
+            },
+            "/dev/loop10": {
+                "Use%": "100%",
+                "Used": "63M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop10",
+                "Mounted on": "/snap/gtk-common-themes/1506",
+                "Size": "63M"
+            },
+            "/dev/loop13": {
+                "Use%": "100%",
+                "Used": "55M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop13",
+                "Mounted on": "/snap/gtk-common-themes/1502",
+                "Size": "55M"
+            },
+            "/dev/loop12": {
+                "Use%": "100%",
+                "Used": "55M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop12",
+                "Mounted on": "/snap/core18/1880",
+                "Size": "55M"
+            },
+            "/dev/loop15": {
+                "Use%": "100%",
+                "Used": "384K",
+                "Avail": "0",
+                "Filesystem": "/dev/loop15",
+                "Mounted on": "/snap/gnome-characters/550",
+                "Size": "384K"
+            },
+            "/dev/loop14": {
+                "Use%": "100%",
+                "Used": "2.3M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop14",
+                "Mounted on": "/snap/gnome-system-monitor/148",
+                "Size": "2.3M"
+            },
+            "/dev/loop17": {
+                "Use%": "100%",
+                "Used": "162M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop17",
+                "Mounted on": "/snap/gnome-3-28-1804/128",
+                "Size": "162M"
+            },
+            "/dev/loop16": {
+                "Use%": "100%",
+                "Used": "256M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop16",
+                "Mounted on": "/snap/gnome-3-34-1804/36",
+                "Size": "256M"
+            },
+            "/dev/loop19": {
+                "Use%": "100%",
+                "Used": "1.0M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop19",
+                "Mounted on": "/snap/gnome-logs/93",
+                "Size": "1.0M"
+            },
+            "/dev/loop18": {
+                "Use%": "100%",
+                "Used": "161M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop18",
+                "Mounted on": "/snap/gnome-3-28-1804/116",
+                "Size": "161M"
+            }
+        }
+    },
+    "2020072416": {
+        "top": {
+            "%Cpu(s)": {
+                "ni": "0.0",
+                "sy": "0.4",
+                "hi": "0.0",
+                "wa": "0.1",
+                "id": "98.6",
+                "si": "0.0",
+                "us": "0.9",
+                "st": "0.0"
+            },
+            "running_time": "39",
+            "KiB Swap": {
+                "total": "2097148",
+                "avail Mem": "6533340",
+                "free": "2097148",
+                "used": "0"
+            },
+            "load_aver": [
+                " 0.03",
+                " 0.08",
+                " 0.08"
+            ],
+            "KiB Mem ": {
+                "buff/cache": "4447492",
+                "total": "7961668",
+                "free": "2385584",
+                "used": "1128592"
+            }
+        },
+        "df_h": {
+            "udev": {
+                "Use%": "0%",
+                "Used": "0",
+                "Avail": "3.8G",
+                "Filesystem": "udev",
+                "Mounted on": "/dev",
+                "Size": "3.8G"
+            },
+            "/dev/sda1": {
+                "Use%": "2%",
+                "Used": "7.3M",
+                "Avail": "504M",
+                "Filesystem": "/dev/sda1",
+                "Mounted on": "/boot/efi",
+                "Size": "511M"
+            },
+            "/dev/sda2": {
+                "Use%": "1%",
+                "Used": "12G",
+                "Avail": "1.7T",
+                "Filesystem": "/dev/sda2",
+                "Mounted on": "/",
+                "Size": "1.8T"
+            },
+            "/dev/loop20": {
+                "Use%": "100%",
+                "Used": "97M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop20",
+                "Mounted on": "/snap/core/9436",
+                "Size": "97M"
+            },
+            "Filesystem": {
+                "Use%": "Use%",
+                "Used": "Used",
+                "Avail": "Avail",
+                "Filesystem": "Filesystem",
+                "Mounted on": "Mounted",
+                "Size": "Size"
+            },
+            "tmpfs": {
+                "Use%": "0%",
+                "Used": "0",
+                "Avail": "778M",
+                "Filesystem": "tmpfs",
+                "Mounted on": "/run/user/1000",
+                "Size": "778M"
+            },
+            "/dev/loop5": {
+                "Use%": "100%",
+                "Used": "1.0M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop5",
+                "Mounted on": "/snap/gnome-logs/100",
+                "Size": "1.0M"
+            },
+            "/dev/loop4": {
+                "Use%": "100%",
+                "Used": "97M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop4",
+                "Mounted on": "/snap/core/9665",
+                "Size": "97M"
+            },
+            "/dev/loop7": {
+                "Use%": "100%",
+                "Used": "2.5M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop7",
+                "Mounted on": "/snap/gnome-calculator/748",
+                "Size": "2.5M"
+            },
+            "/dev/loop6": {
+                "Use%": "100%",
+                "Used": "141M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop6",
+                "Mounted on": "/snap/gnome-3-26-1604/100",
+                "Size": "141M"
+            },
+            "/dev/loop1": {
+                "Use%": "100%",
+                "Used": "384K",
+                "Avail": "0",
+                "Filesystem": "/dev/loop1",
+                "Mounted on": "/snap/gnome-characters/539",
+                "Size": "384K"
+            },
+            "/dev/loop0": {
+                "Use%": "100%",
+                "Used": "2.5M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop0",
+                "Mounted on": "/snap/gnome-calculator/730",
+                "Size": "2.5M"
+            },
+            "/dev/loop3": {
+                "Use%": "100%",
+                "Used": "2.3M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop3",
+                "Mounted on": "/snap/gnome-system-monitor/145",
+                "Size": "2.3M"
+            },
+            "/dev/loop2": {
+                "Use%": "100%",
+                "Used": "256M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop2",
+                "Mounted on": "/snap/gnome-3-34-1804/33",
+                "Size": "256M"
+            },
+            "/dev/loop9": {
+                "Use%": "100%",
+                "Used": "141M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop9",
+                "Mounted on": "/snap/gnome-3-26-1604/98",
+                "Size": "141M"
+            },
+            "/dev/loop8": {
+                "Use%": "100%",
+                "Used": "55M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop8",
+                "Mounted on": "/snap/core18/1754",
+                "Size": "55M"
+            },
+            "/dev/loop10": {
+                "Use%": "100%",
+                "Used": "63M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop10",
+                "Mounted on": "/snap/gtk-common-themes/1506",
+                "Size": "63M"
+            },
+            "/dev/loop13": {
+                "Use%": "100%",
+                "Used": "55M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop13",
+                "Mounted on": "/snap/gtk-common-themes/1502",
+                "Size": "55M"
+            },
+            "/dev/loop12": {
+                "Use%": "100%",
+                "Used": "55M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop12",
+                "Mounted on": "/snap/core18/1880",
+                "Size": "55M"
+            },
+            "/dev/loop15": {
+                "Use%": "100%",
+                "Used": "384K",
+                "Avail": "0",
+                "Filesystem": "/dev/loop15",
+                "Mounted on": "/snap/gnome-characters/550",
+                "Size": "384K"
+            },
+            "/dev/loop14": {
+                "Use%": "100%",
+                "Used": "2.3M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop14",
+                "Mounted on": "/snap/gnome-system-monitor/148",
+                "Size": "2.3M"
+            },
+            "/dev/loop17": {
+                "Use%": "100%",
+                "Used": "162M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop17",
+                "Mounted on": "/snap/gnome-3-28-1804/128",
+                "Size": "162M"
+            },
+            "/dev/loop16": {
+                "Use%": "100%",
+                "Used": "256M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop16",
+                "Mounted on": "/snap/gnome-3-34-1804/36",
+                "Size": "256M"
+            },
+            "/dev/loop19": {
+                "Use%": "100%",
+                "Used": "1.0M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop19",
+                "Mounted on": "/snap/gnome-logs/93",
+                "Size": "1.0M"
+            },
+            "/dev/loop18": {
+                "Use%": "100%",
+                "Used": "161M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop18",
+                "Mounted on": "/snap/gnome-3-28-1804/116",
+                "Size": "161M"
+            }
+        }
+    },
+    "2020072316": {
+        "top": {
+            "%Cpu(s)": {
+                "ni": "0.0",
+                "sy": "0.4",
+                "hi": "0.0",
+                "wa": "0.1",
+                "id": "98.6",
+                "si": "0.0",
+                "us": "0.9",
+                "st": "0.0"
+            },
+            "running_time": "39",
+            "KiB Swap": {
+                "total": "2097148",
+                "avail Mem": "6533340",
+                "free": "2097148",
+                "used": "0"
+            },
+            "load_aver": [
+                " 0.03",
+                " 0.08",
+                " 0.08"
+            ],
+            "KiB Mem ": {
+                "buff/cache": "4447492",
+                "total": "7961668",
+                "free": "2385584",
+                "used": "1128592"
+            }
+        },
+        "df_h": {
+            "udev": {
+                "Use%": "0%",
+                "Used": "0",
+                "Avail": "3.8G",
+                "Filesystem": "udev",
+                "Mounted on": "/dev",
+                "Size": "3.8G"
+            },
+            "/dev/sda1": {
+                "Use%": "2%",
+                "Used": "7.3M",
+                "Avail": "504M",
+                "Filesystem": "/dev/sda1",
+                "Mounted on": "/boot/efi",
+                "Size": "511M"
+            },
+            "/dev/sda2": {
+                "Use%": "1%",
+                "Used": "12G",
+                "Avail": "1.7T",
+                "Filesystem": "/dev/sda2",
+                "Mounted on": "/",
+                "Size": "1.8T"
+            },
+            "/dev/loop20": {
+                "Use%": "100%",
+                "Used": "97M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop20",
+                "Mounted on": "/snap/core/9436",
+                "Size": "97M"
+            },
+            "Filesystem": {
+                "Use%": "Use%",
+                "Used": "Used",
+                "Avail": "Avail",
+                "Filesystem": "Filesystem",
+                "Mounted on": "Mounted",
+                "Size": "Size"
+            },
+            "tmpfs": {
+                "Use%": "0%",
+                "Used": "0",
+                "Avail": "778M",
+                "Filesystem": "tmpfs",
+                "Mounted on": "/run/user/1000",
+                "Size": "778M"
+            },
+            "/dev/loop5": {
+                "Use%": "100%",
+                "Used": "1.0M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop5",
+                "Mounted on": "/snap/gnome-logs/100",
+                "Size": "1.0M"
+            },
+            "/dev/loop4": {
+                "Use%": "100%",
+                "Used": "97M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop4",
+                "Mounted on": "/snap/core/9665",
+                "Size": "97M"
+            },
+            "/dev/loop7": {
+                "Use%": "100%",
+                "Used": "2.5M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop7",
+                "Mounted on": "/snap/gnome-calculator/748",
+                "Size": "2.5M"
+            },
+            "/dev/loop6": {
+                "Use%": "100%",
+                "Used": "141M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop6",
+                "Mounted on": "/snap/gnome-3-26-1604/100",
+                "Size": "141M"
+            },
+            "/dev/loop1": {
+                "Use%": "100%",
+                "Used": "384K",
+                "Avail": "0",
+                "Filesystem": "/dev/loop1",
+                "Mounted on": "/snap/gnome-characters/539",
+                "Size": "384K"
+            },
+            "/dev/loop0": {
+                "Use%": "100%",
+                "Used": "2.5M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop0",
+                "Mounted on": "/snap/gnome-calculator/730",
+                "Size": "2.5M"
+            },
+            "/dev/loop3": {
+                "Use%": "100%",
+                "Used": "2.3M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop3",
+                "Mounted on": "/snap/gnome-system-monitor/145",
+                "Size": "2.3M"
+            },
+            "/dev/loop2": {
+                "Use%": "100%",
+                "Used": "256M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop2",
+                "Mounted on": "/snap/gnome-3-34-1804/33",
+                "Size": "256M"
+            },
+            "/dev/loop9": {
+                "Use%": "100%",
+                "Used": "141M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop9",
+                "Mounted on": "/snap/gnome-3-26-1604/98",
+                "Size": "141M"
+            },
+            "/dev/loop8": {
+                "Use%": "100%",
+                "Used": "55M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop8",
+                "Mounted on": "/snap/core18/1754",
+                "Size": "55M"
+            },
+            "/dev/loop10": {
+                "Use%": "100%",
+                "Used": "63M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop10",
+                "Mounted on": "/snap/gtk-common-themes/1506",
+                "Size": "63M"
+            },
+            "/dev/loop13": {
+                "Use%": "100%",
+                "Used": "55M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop13",
+                "Mounted on": "/snap/gtk-common-themes/1502",
+                "Size": "55M"
+            },
+            "/dev/loop12": {
+                "Use%": "100%",
+                "Used": "55M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop12",
+                "Mounted on": "/snap/core18/1880",
+                "Size": "55M"
+            },
+            "/dev/loop15": {
+                "Use%": "100%",
+                "Used": "384K",
+                "Avail": "0",
+                "Filesystem": "/dev/loop15",
+                "Mounted on": "/snap/gnome-characters/550",
+                "Size": "384K"
+            },
+            "/dev/loop14": {
+                "Use%": "100%",
+                "Used": "2.3M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop14",
+                "Mounted on": "/snap/gnome-system-monitor/148",
+                "Size": "2.3M"
+            },
+            "/dev/loop17": {
+                "Use%": "100%",
+                "Used": "162M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop17",
+                "Mounted on": "/snap/gnome-3-28-1804/128",
+                "Size": "162M"
+            },
+            "/dev/loop16": {
+                "Use%": "100%",
+                "Used": "256M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop16",
+                "Mounted on": "/snap/gnome-3-34-1804/36",
+                "Size": "256M"
+            },
+            "/dev/loop19": {
+                "Use%": "100%",
+                "Used": "1.0M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop19",
+                "Mounted on": "/snap/gnome-logs/93",
+                "Size": "1.0M"
+            },
+            "/dev/loop18": {
+                "Use%": "100%",
+                "Used": "161M",
+                "Avail": "0",
+                "Filesystem": "/dev/loop18",
+                "Mounted on": "/snap/gnome-3-28-1804/116",
+                "Size": "161M"
+            }
+        }
+    }
+}
