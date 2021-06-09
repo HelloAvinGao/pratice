@@ -1,0 +1,18 @@
+    function exportTable(self){
+        var tableName = document.getElementById('table').getAttribute('data-index');
+        var exportType = self.value;
+        console.log(self.value);
+
+        if(document.getElementById('table').children.length != 0){
+            $('#table').tableExport({
+                type: exportType,
+                exportDataType: "all",
+                ignoreColumn: [0],
+                fileName: tableName,
+                onCellHtmlData: function (cell, row, col, data){
+                    console.info(data);
+                    return data;
+                },
+            });
+        }
+    }

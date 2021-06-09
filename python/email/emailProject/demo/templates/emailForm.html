@@ -1,0 +1,13 @@
+{% include 'base.html' %}
+{% block content %}
+<form action="/sendEmail/" method="GET">
+    {% csrf_token %}
+    <input type="email" placeholder="xxx@example.com" name="receivers">
+    <input type="submit" value="submit">
+    <textarea name="emailContent" id="TextArea" cols="20" rows="3" class="ckeditor"></textarea>
+</form>
+<script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('TextArea');
+</script>
+{% endblock content %}

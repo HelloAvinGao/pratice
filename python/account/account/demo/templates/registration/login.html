@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>INNOVISION 内部管理系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="{% static 'img/logo.jpg'%}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{% static 'img/logo.jpg'%}" type="image/x-icon"/>
+    <style>
+        *{margin:*;padding:*;font-size: 1em;}
+        input{border:1px solid white;background:#5674a8;margin-bottom:1vh;width:10vw;}
+        .login{width:30vw;height:40vh;background:#5674a8;color:white; box-shadow: 20px 20px rgba(28, 60, 101, 0.5);margin-top:10vh;margin-left:15vw;list-style-type:none;}
+        .header{line-height: 20vh;}
+        .header img{width:20vw;}
+	      .errorlist{list-style-type:none;margin:0;padding:0;color:orange;}
+        input[type='password']{margin-left:15px;}
+        body{background-image: url({% static 'img/loginBg.png' %});background-size: 100vw 100vh;background-repeat: no-repeat;}
+        input[type='submit']{color:white;}
+        /* Extra small devices (phones, 600px and down) */
+        @media only screen and (max-width: 600px) {
+          h2{font-size: 1.5em;}
+          body{background-image: url({% static 'img/bg.jpg' %});background-size: 100vw 100vh;background-repeat: no-repeat;}
+          input{border:1px solid black;background:white;margin-bottom:1vh;width:50vw;}
+          .login{width:80%;height:40vh;background:white;color:black; box-shadow: none;margin-top:10vh;margin:auto;list-style-type:none;}
+          .header{line-height: 20vh;}
+          .header img{width:40vw;}
+
+          input[type='password']{margin-left:15px;}
+          input[type='submit']{color:black;}
+        }
+
+        /* Small devices (portrait tablets and large phones, 600px and up) */
+        @media only screen and (min-width: 600px) {
+          input{border:1px solid white;background:#5674a8;width:50%;}
+          .login{width:30vw;height:60vh;background:#5674a8;color:white; box-shadow: 20px 20px rgba(28, 60, 101, 0.5);margin-top:10vh;margin-left:15vw;list-style-type:none;}
+          .header{line-height: 20vh;}
+          .header img{width:20vw;}
+  	      .errorlist{list-style-type:none;margin:0;padding:0;font-size: 0.5em;}
+          input[type='password']{margin-left:15px;}
+          body{background-image: url({% static 'img/loginBg.png' %});background-size: 100vw 120vh;background-repeat: no-repeat;}
+          input[type='submit']{color:white;}
+        }
+
+        /* Medium devices (landscape tablets, 768px and up) */
+        @media only screen and (min-width: 768px) {
+          input{border:1px solid white;background:#5674a8;width:50%;}
+          .login{width:30vw;height:60vh;background:#5674a8;color:white; box-shadow: 20px 20px rgba(28, 60, 101, 0.5);margin-top:10vh;margin-left:15vw;list-style-type:none;}
+          .header{line-height: 20vh;}
+          .header img{width:20vw;}
+  	      .errorlist{list-style-type:none;margin:0;padding:0;font-size: 1em;}
+          input[type='password']{margin-left:15px;}
+          body{background-image: url({% static 'img/loginBg.png' %});background-size: 100vw 120vh;background-repeat: no-repeat;}
+          input[type='submit']{color:white;}
+        }
+
+        /* Large devices (laptops/desktops, 992px and up) */
+        @media only screen and (min-width: 992px) {
+          h2{font-size: 1.5em;}
+          input{border:1px solid white;background:#5674a8;margin-bottom:1vh;width:10vw;}
+          .login{width:30vw;height:40vh;background:#5674a8;color:white; box-shadow: 20px 20px rgba(28, 60, 101, 0.5);margin-top:10vh;margin-left:15vw;list-style-type:none;}
+          .header{line-height: 20vh;}
+          .header img{width:20vw;}
+  	      .errorlist{list-style-type:none;margin:0;padding:0;font-size: 1em;}
+          input[type='password']{margin-left:15px;}
+          body{background-image: url({% static 'img/loginBg.png' %});background-size: 100vw 100vh;background-repeat: no-repeat;}
+          input[type='submit']{color:white;}
+        }
+
+        /* Extra large devices (large laptops and desktops, 1200px and up) */
+        @media only screen and (min-width: 1200px) {
+          h2{font-size: 1.5em;}
+          input{border:1px solid white;background:#5674a8;margin-bottom:1vh;width:10vw;}
+          .login{width:30vw;height:40vh;background:#5674a8;color:white; box-shadow: 20px 20px rgba(28, 60, 101, 0.5);margin-top:10vh;margin-left:15vw;list-style-type:none;}
+          .header{line-height: 20vh;}
+          .header img{width:20vw;}
+  	      .errorlist{list-style-type:none;margin:0;padding:0;font-size: 1em;}
+          input[type='password']{margin-left:15px;}
+          body{background-image: url({% static 'img/loginBg.png' %});background-size: 100vw 100vh;background-repeat: no-repeat;}
+          input[type='submit']{color:white;}
+        }
+    </style>
+  </head>
+  <body>
+        <div>
+                <div class="header" align="center">
+                        <img src="{% static 'img/InnoVision_logo.png' %}">
+                </div>
+                <div class="login" >
+                        <div align="center">
+                  				<h2  style="padding-top:5vh;">欢迎使用INNOVISION内部管理页面</h2>
+                  				<form method="post">
+                  				  {% csrf_token %}
+                  				  {{ form.as_p }}
+                  				  <input type="submit" value="提交" align="center">
+                  				  <!--button type="submit">提交</button>-->
+                  				</form>
+                        </div>
+                </div>
+        </div>
+  </body>
+</html>

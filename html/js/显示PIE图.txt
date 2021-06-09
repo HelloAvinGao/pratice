@@ -1,0 +1,44 @@
+  function showPIE(data){
+    var h_items = new Array();
+    var thingsArray = [];
+    for(var i = 0; i < data.length;i++){
+      for(var key in data[i]){
+        if(key == "things"){
+          thingsArray[i]=data[i][key];
+        }
+      }
+    }
+    var ThingsArr = unique(thingsArray);
+    var numArr = {};
+    var h_title;
+    for(var j = 0;j<ThingsArr.length;j++){
+      var sum = 0;
+      for(var k = 0; k < data.length;k++){
+        if(data[k]["things"] == ThingsArr[j]){
+          h_title = data[k]["class"] + ":" +data[k]["things"];
+          sum += parseInt(data[k]["number"]);
+        }
+      }
+      numArr[ThingsArr[j]]=sum;
+      h_items[j] = {
+        "h_title": h_title,
+        "h_amount": sum,
+        "h_color": colors[j]
+      }
+    }
+    document.getElementById("easysector").innerHTML = "";
+    $("#easysector").easysector({
+      "h_items": h_items,
+      "h_title": "Things Percent",
+      "h_width": 260,
+      "h_borderColor": "silver",
+      "h_poindlength": 0,
+      "h_showamount": true,
+      "h_backColor": "#fff",
+      "h_recwidth": 20,
+      "h_titlesize": 24,
+      "h_Radii": 125,
+      "h_infosize": 16
+    });
+
+  }

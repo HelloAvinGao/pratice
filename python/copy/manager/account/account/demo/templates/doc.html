@@ -1,0 +1,134 @@
+{% include 'header.html' %}
+{% load static %}
+{% block content %}
+  <div class="content_left">
+    {% include 'content_left.html' %}
+  </div>
+  <div class="middle"  style="width:25vw;float:left;margin-left:20px;">
+    <div class="uploadDiv">
+      <form class="formStyle" action="/doc/upload/" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <input type="file" name="uploadFile" value="选择文件" >
+        <input type="submit"  value="上传">
+      </form>
+    </div>
+    <div class="content_middle" id="content_middle" style="width:100%;height:100%;">
+
+    </div>
+  </div>
+  <div class="content_right" id="content_right" style="width:50vw;height:80vh;float:left;">
+
+  </div>
+  <style>
+    .folderStyleClose{background-image: url({% static 'img/folderClose.ico' %});background-repeat: no-repeat;padding-left:16px;background-position:left;}
+    .folderStyleOpen{background-image: url({% static 'img/opened_folder.ico' %});background-repeat: no-repeat;padding-left:16px;background-position:left;}
+    .fileStyle{background-image: url({% static 'img/file.ico' %});background-repeat: no-repeat;padding-left:16px;background-position:left;}
+
+    .content_middle{width:75vw;float:right;}
+  </style>
+  <script type="text/javascript">
+      var List = {{ url|safe }};
+      var adminKEYarr = ['img','js'];
+      var managerKEYarr = ['project'];
+      var adminKEY = permsKEY(adminKEYarr);
+      var managerKEY = permsKEY(managerKEYarr);
+      function permsKEY(permsArr){
+        var permsKEY = '';
+        for(var i = 0;i < permsArr.length;i++){
+          if(i != 0){
+            permsKEY += "|| ";
+          }
+          permsKEY += "key == '" + permsArr[i] + "'"
+        }
+        return permsKEY
+      }
+      var n = 1;
+      showFolder(List,'content_middle',n);
+      function showFolder(data,id,n){
+        var str = "";
+        for(var key in data){
+          if(typeof(data[key]) == "string"){
+              str += "<a href=\"#\" onclick=\"showFile(this)\"><li class=\"fileStyle\">"+key+"</li></a>";
+          }else if(typeof(data[key]) == "object"){
+            if(eval(adminKEY)){
+              str += "{% if perms.demo.admin %}";
+              str += "<div><a href=\"#\"  onclick=\"listdir(this)\"><li class=\"folderStyleClose\">"+key+"</li></a><div style=\"padding-left:15px;\" id=\""+key+"_folder_"+n+"\"></div></div>";
+              str += "{% endif %}";
+            }else{
+              if(eval(managerKEY)){
+                str += "{% if perms.demo.manager %}";
+                str += "<div><a href=\"#\"  onclick=\"listdir(this)\"><li class=\"folderStyleClose\">"+key+"</li></a><div style=\"padding-left:15px;\" id=\""+key+"_folder_"+n+"\"></div></div>";
+                str += "{% endif %}";
+              }else{
+                str += "<div><a href=\"#\"  onclick=\"listdir(this)\"><li class=\"folderStyleClose\">"+key+"</li></a><div style=\"padding-left:15px;\" id=\""+key+"_folder_"+n+"\"></div></div>";
+              }
+            }
+          }else{
+            continue;
+          }
+        }
+        document.getElementById(id).innerHTML = str;
+      }
+      var PathStr = "";
+      function listdir(self){
+        if(self.childNodes[0].className == "folderStyleClose"){
+          self.childNodes[0].className = "folderStyleOpen";
+        }else{
+          self.childNodes[0].className = "folderStyleClose";
+        }
+        if(document.getElementById(self.parentNode.childNodes[1].id).innerHTML == ""){
+          ISfolder = (self.parentNode.parentNode.id).indexOf('_folder_');
+          var id = self.parentNode.childNodes[1].id;
+          var num = Number((id).split('_folder_')[1])+1;
+          if( ISfolder == -1){
+            data = List[self.childNodes[0].innerHTML];
+          }else{
+            PathStr = "";
+            var ParentFolderID = self.parentNode.parentNode.id;
+            var num = Number((ParentFolderID).split('_folder_')[1])+2;
+            ISsecondfolder(ParentFolderID);
+            var ParentFolderPathArr = PathStr.split('/');
+            var folderStr = "List";
+            for(var i = ParentFolderPathArr.length-1; i > 0;i--){
+              if(ParentFolderPathArr[i] == undefined || ParentFolderPathArr[i] == null || ParentFolderPathArr[i] == ""){
+                continue
+              }
+              folderStr += "['" + ParentFolderPathArr[i]+"']";
+            }
+            var currentFolder = "['" + (self.parentNode.childNodes[1].id).split('_folder_')[0] + "']";
+            folderStr += currentFolder;
+            data = eval(folderStr);
+          }
+          showFolder(data,id,num);
+        }else{
+          document.getElementById(self.parentNode.childNodes[1].id).innerHTML = "";
+        }
+      }
+      function ISsecondfolder(currentFolderID){
+        ISfolder = currentFolderID.indexOf('_folder_');
+        if( ISfolder == -1){
+          return PathStr;
+        }else{
+          PathStr += "/"+currentFolderID.split('_folder_')[0];
+          ISsecondfolder(document.getElementById(currentFolderID).parentNode.parentNode.id);
+        }
+      }
+      function showFile(self){
+        var folderStr = "http://127.0.0.1:8000/static/";
+        if(self.parentNode.id == 'content_middle'){
+          document.getElementById('content_right').innerHTML = "<iframe src=\""+folderStr+self.innerText+"\" width=\"100%\" height=\"100%\" style=\"border:none;\"></iframe>"
+        }else{
+          PathStr = "";
+          ISsecondfolder(self.parentNode.id);
+          var ParentFolderPathArr = PathStr.split('/');
+          for(var i = ParentFolderPathArr.length-1; i > 0;i--){
+            if(ParentFolderPathArr[i] == undefined || ParentFolderPathArr[i] == null || ParentFolderPathArr[i] == ""){
+              continue
+            }
+            folderStr +=  ParentFolderPathArr[i]+"/";
+          }
+          document.getElementById('content_right').innerHTML = "<iframe src=\""+folderStr+self.innerText+"\" width=\"100%\" height=\"100%\" style=\"border:none;\"></iframe>"
+        }
+      }
+  </script>
+{% endblock content %}

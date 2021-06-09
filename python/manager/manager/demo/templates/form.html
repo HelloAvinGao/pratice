@@ -1,0 +1,15 @@
+{% block content %}
+        <form action='/login/' method='POST'>
+                <table>
+                        <tr>
+                            <td class="td_left"><label for="username">用户名</label></td>
+                            <td class="td_right"><input type="text" name="username" id="username" placeholder="请输入用 户名"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="td_left"><label for="password">密码</label></td>
+                            <td class="td_right"><input type="password" name="password" id="password" placeholder="请输 入密码"></td>
+                        </tr>
+                    </table>
+        </form>
+{% endblock content %}

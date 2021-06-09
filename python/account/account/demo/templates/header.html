@@ -1,0 +1,12 @@
+{% load static %}
+<div class="header">
+  <div class="header_left">
+    <img src="{% static 'img/InnoVision_logo.png' %}">
+  </div>
+  <div class="header_right">
+    <p>Hi {{ user.username }}! <a href="{% url 'logout' %}">退出</a></p>
+  </div>
+</div>
+<div class="marquee"  style="">
+    <marquee direction=left behavior=scroll scrollamount=6 scrolldelay=0 align=top bgcolor=#ffffff onmouseover=this.stop() onmouseout=this.start()> 此处输入滚动内容 </marquee>
+</div>
